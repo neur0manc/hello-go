@@ -1,0 +1,9 @@
+apiVersion: skaffold/v2alpha4
+kind: Config
+build:
+  artifacts:
+    - image: hello-container
+deploy:
+  kubectl:
+    manifests:
+      - kubernetes/*.yaml
