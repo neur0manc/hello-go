@@ -1,10 +1,10 @@
 apiVersion: skaffold/v2beta1
 kind: Config
 build:
-  local:
-    concurrency: 4
   artifacts:
     - image: hello-container
+  local:
+    concurrency: 3
 deploy:
   kubeContext: docker-desktop
   kubectl:
