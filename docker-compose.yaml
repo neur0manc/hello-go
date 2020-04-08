@@ -1,0 +1,10 @@
+version: '3.3'
+
+# the hello server
+services:
+  server:
+    image: hello
+    restart: always
+    container_name: hello
+    ports:
+      - "0.0.0.0:8080:8080"
