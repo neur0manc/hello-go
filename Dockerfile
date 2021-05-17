@@ -1,10 +1,11 @@
 FROM golang:alpine as builder
-COPY main.go .
 ENV CGO_ENABLED 0
 ENV GOOS linux
+RUN mkdir -p $GOPATH/src/github.com/ls42/hello-go
+WORKDIR $GOPATH/src/github.com/ls42/hello-go
+COPY main.go .
 RUN apk add --no-cache git upx
-RUN go get github.com/prometheus/client_golang/prometheus && \
-	go get github.com/prometheus/client_golang/prometheus/promhttp
+RUN go mod init github.com/ls42/hello-go
 RUN go build -o /hello -a -tags netgo -ldflags '-w' .
 RUN upx /hello
 
