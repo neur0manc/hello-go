@@ -1,0 +1,20 @@
+image: docker:stable-dind
+
+# Define the build stage
+stages:
+  - build
+  - test
+
+# Log into docker registry before every script is run
+before_script:
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+
+# Build container image
+build:
+  stage: build
+  script: |
+    docker buildx build \
+      -t $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG \
+      --platform linux/arm64,linux/amd64 \
+      --push \
+      .
